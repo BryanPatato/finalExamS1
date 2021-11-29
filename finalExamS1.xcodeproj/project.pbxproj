@@ -14,6 +14,9 @@
 		9C8FD9892755134400FDFD04 /* finalExamS1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C8FD9872755134400FDFD04 /* finalExamS1.xcdatamodeld */; };
 		9C8FD98B2755134600FDFD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C8FD98A2755134600FDFD04 /* Assets.xcassets */; };
 		9C8FD98E2755134600FDFD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C8FD98C2755134600FDFD04 /* LaunchScreen.storyboard */; };
+		9C8FD99627551DA200FDFD04 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8FD99527551DA200FDFD04 /* ViewController2.swift */; };
+		9C8FD99827551DC800FDFD04 /* MineSweeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8FD99727551DC800FDFD04 /* MineSweeper.swift */; };
+		9C8FD99A27551DD400FDFD04 /* Chess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8FD99927551DD400FDFD04 /* Chess.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		9C8FD98A2755134600FDFD04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C8FD98D2755134600FDFD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C8FD98F2755134600FDFD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C8FD99527551DA200FDFD04 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		9C8FD99727551DC800FDFD04 /* MineSweeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSweeper.swift; sourceTree = "<group>"; };
+		9C8FD99927551DD400FDFD04 /* Chess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chess.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,9 @@
 				9C8FD9802755134400FDFD04 /* SceneDelegate.swift */,
 				9C8FD9822755134400FDFD04 /* ViewController.swift */,
 				9C8FD9842755134400FDFD04 /* Main.storyboard */,
+				9C8FD99727551DC800FDFD04 /* MineSweeper.swift */,
+				9C8FD99927551DD400FDFD04 /* Chess.swift */,
+				9C8FD99527551DA200FDFD04 /* ViewController2.swift */,
 				9C8FD98A2755134600FDFD04 /* Assets.xcassets */,
 				9C8FD98C2755134600FDFD04 /* LaunchScreen.storyboard */,
 				9C8FD98F2755134600FDFD04 /* Info.plist */,
@@ -141,9 +150,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C8FD99A27551DD400FDFD04 /* Chess.swift in Sources */,
+				9C8FD99627551DA200FDFD04 /* ViewController2.swift in Sources */,
 				9C8FD9832755134400FDFD04 /* ViewController.swift in Sources */,
 				9C8FD9892755134400FDFD04 /* finalExamS1.xcdatamodeld in Sources */,
 				9C8FD97F2755134400FDFD04 /* AppDelegate.swift in Sources */,
+				9C8FD99827551DC800FDFD04 /* MineSweeper.swift in Sources */,
 				9C8FD9812755134400FDFD04 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
