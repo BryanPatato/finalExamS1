@@ -7,7 +7,3 @@
 
 import Foundation
 
-public class Chess{
-    
-    
-}
