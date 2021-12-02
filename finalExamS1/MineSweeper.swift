@@ -23,6 +23,15 @@ public class mineSweeper
         let c = generator(boardSizeX: 8, BoardSizeY: 8)
         board = c.generate()
     }
+    func initReveal()
+    {
+        state = .active
+        
+    }
+    func reveal()
+    {
+        
+    }
 }
 private class generator
 {
