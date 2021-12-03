@@ -18,6 +18,7 @@ public class mineSweeper
     var state: activeState
     var board: [[tileType]]
     var hidBoard: [[Bool]]
+    static var adjacent: [[Int]]
     static var x = 0
     static var y = 0
     fileprivate var c: generator
@@ -26,6 +27,8 @@ public class mineSweeper
         state = .unplayed
         c = generator(boardSizeX: 8, BoardSizeY: 8)
         board = [[]]
+        hidBoard = [[]]
+        mineSweeper.adjacent = [[]]
         mineSweeper.x = 0
         mineSweeper.y = 0
     }
@@ -60,7 +63,22 @@ public class mineSweeper
             default:
                 do
                 {
-                    
+                    if board[indexPath.row + 1][indexPath.item] == .empty
+                    {
+                        reveal(indexPath: IndexPath(row: indexPath.row + 1, section: indexPath.section))
+                    }
+                    else if board[indexPath.row - 1][indexPath.item] == .empty
+                    {
+                        reveal(indexPath: IndexPath(row: indexPath.row - 1, section: indexPath.section))
+                    }
+                    else if board[indexPath.row][indexPath.item + 1] == .empty
+                    {
+                        reveal(indexPath: IndexPath(item: indexPath.item + 1, section: indexPath.section))
+                    }
+                    else if board[indexPath.row][indexPath.item - 1] == .empty
+                    {
+                        reveal(indexPath: IndexPath(item: indexPath.item - 1, section: indexPath.section))
+                    }
                 }
             }
         }
@@ -107,6 +125,7 @@ private class generator
             }
             newBoard[Int(randPlaceX)][Int(randPlaceY)] = .mine
         }
+        for 
         return newBoard
     }
 }

@@ -146,9 +146,9 @@ struct board {
     }
     
     mutating func promotePiece(at positions: Position, to types: chessPiece) {
-        var piece = self.boardPieces(removePiece(at: positions)
-        piece.type = types
-        boardPieces[positions.y][positions.x] = piece
+//        var piece = self.boardPieces(removePiece(at: positions)
+//        piece.type = types
+//        boardPieces[positions.y][positions.x] = piece
     }
     
     
