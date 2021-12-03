@@ -79,28 +79,28 @@ public class PieceID{
         }
     }
 }
-    
-public class Chess {
-    
-}
 
-public class board {
-    private var boardPieces:[[PieceID]]
-    var x,y:Int
-    
-    init() {
-        boardPieces =
-        [[PieceID(pieceID: "BR0"),"BN1","BB2","BQ3","BK4","BB5","BN6","BR7"],
-        ["BP0","BP1","BP2","BP3","BP4","BP5","BP6","BP7"],
-        [nil,nil,nil,nil,nil,nil,nil,nil],
-        [nil,nil,nil,nil,nil,nil,nil,nil],
-        [nil,nil,nil,nil,nil,nil,nil,nil],
-        [nil,nil,nil,nil,nil,nil,nil,nil],
-        ["WP0","WP1","WP2","WP3","WP4","WP5","WP6","WP7"],
-        ["WR0","WN1","WB2","WQ3","WK4","WB5","WN6","WR7"]
-        ]
-    }
-    
-    
-}
+//public class Chess {
+//
+//}
+//
+//public class board {
+//    private var boardPieces:[[PieceID]]
+//    var x,y:Int
+//
+//    init() {
+//        boardPieces =
+//        [[PieceID(pieceID: "BR0"),"BN1","BB2","BQ3","BK4","BB5","BN6","BR7"],
+//        ["BP0","BP1","BP2","BP3","BP4","BP5","BP6","BP7"],
+//        [nil,nil,nil,nil,nil,nil,nil,nil],
+//        [nil,nil,nil,nil,nil,nil,nil,nil],
+//        [nil,nil,nil,nil,nil,nil,nil,nil],
+//        [nil,nil,nil,nil,nil,nil,nil,nil],
+//        ["WP0","WP1","WP2","WP3","WP4","WP5","WP6","WP7"],
+//        ["WR0","WN1","WB2","WQ3","WK4","WB5","WN6","WR7"]
+//        ]
+//    }
+//
+//
+//}
 
