@@ -44,7 +44,7 @@ enum chessPiece {
 enum PieceColor {
     case white
     case black
-    var color:UIColor{
+    var color:PieceColor{
         switch self {
         case .white:
             return .white
@@ -81,8 +81,27 @@ public class PieceID: ExpressibleByStringLiteral {
         }
     }
 }
+
+struct Move {
+    var from,to: Position
+}
     
 public class Chess {
+    var board:Board
+    var moveHis:[Move]
+    var turn:PieceColor {
+        return moveHis.last.flatMap { board.piecePlace(at: $0.to).colors.color ?? .white } as! PieceColor
+    }
+    
+//    var state:chessState{
+//       let color = turn
+//    }
+    
+    
+    init() {
+    board = Board()
+    moveHis = []
+    }
     
 }
 
@@ -94,10 +113,16 @@ struct Position{
     var x,y:Int
 }
 
-struct board {
+struct Board {
     
     private var boardPieces:[[PieceID]]
+    static let allPositions = (0 ..< 8).flatMap { y in (0 ..< 8).map { Position(x: $0, y: y) } }
     
+    var allPositions: [Position] { return Self.allPositions }
+    
+// var allPieces: [(position: Position, blah: PieceID)] {
+//     return allPositions.compactMap {position in boardPieces[position.y][position.x].map { (position,$0) } } }
+
     init() {
         boardPieces =
         [
@@ -125,6 +150,10 @@ struct board {
         one.y += two.y
     }
     
+//    func firstPosition(where condition: (PieceID) -> Bool) -> Position? {
+//        return allPieces.first(where: { condition($1) })?.position
+//    }
+    
     func piecePlace(at position: Position) -> PieceID {
         guard (0 ..< 8).contains(position.y), (0 ..< 8).contains(position.x) else {
             return ""
@@ -146,44 +175,13 @@ struct board {
     }
     
     mutating func promotePiece(at positions: Position, to types: chessPiece) {
-//        var piece = self.boardPieces(removePiece(at: positions)
-//        piece.type = types
-//        boardPieces[positions.y][positions.x] = piece
+        var piece = self.piecePlace(at: positions)
+        piece.type = types
+        boardPieces[positions.y][positions.x] = piece
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
 
-//public class Chess {
-//
-//}
-//
-//public class board {
-//    private var boardPieces:[[PieceID]]
-//    var x,y:Int
-//
-//    init() {
-//        boardPieces =
-//        [[PieceID(pieceID: "BR0"),"BN1","BB2","BQ3","BK4","BB5","BN6","BR7"],
-//        ["BP0","BP1","BP2","BP3","BP4","BP5","BP6","BP7"],
-//        [nil,nil,nil,nil,nil,nil,nil,nil],
-//        [nil,nil,nil,nil,nil,nil,nil,nil],
-//        [nil,nil,nil,nil,nil,nil,nil,nil],
-//        [nil,nil,nil,nil,nil,nil,nil,nil],
-//        ["WP0","WP1","WP2","WP3","WP4","WP5","WP6","WP7"],
-//        ["WR0","WN1","WB2","WQ3","WK4","WB5","WN6","WR7"]
-//        ]
-//    }
-//
-//
-//}
+
+
 
