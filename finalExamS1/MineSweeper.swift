@@ -8,7 +8,6 @@ enum activeState
 }
 enum tileType
 {
-    case flag
     case mine
     case empty
     case number
@@ -49,11 +48,6 @@ public class mineSweeper
                 do
                 {
                     state = .explosion
-                }
-            case .flag:
-                do
-                {
-                    
                 }
             case .number:
                 do
@@ -113,7 +107,7 @@ private class generator
             var randPlaceY = CGFloat.random(in: 0...CGFloat(mineSweeper.y))
             for _ in 0...Int(bombHandler[2])
             {
-                if  newBoard[Int(randPlaceX) - 1][Int(randPlaceY)] == .mine || newBoard[Int(randPlaceX) + 1][Int(randPlaceY)] == .mine || newBoard[Int(randPlaceX)][Int(randPlaceY) - 1] == .mine || newBoard[Int(randPlaceX)][Int(randPlaceY) + 1] == .mine && Int(randPlaceX) != tapLocal + 1 && Int(randPlaceX) != tapLocal - 1 && Int(randPlaceX) != tapLocal && Int(randPlaceY) != tapLocal + mineSweeper.x && Int(randPlaceY) != tapLocal - mineSweeper.x && Int(randPlaceY) != tapLocal
+                if  randPlaceX - 1 > 0 && randPlaceY - 1 > 0 && Int(randPlaceX) + 1 < mineSweeper.x && Int(randPlaceY) + 1 < mineSweeper.y && (newBoard[Int(randPlaceX) - 1][Int(randPlaceY)] == .mine || newBoard[Int(randPlaceX) + 1][Int(randPlaceY)] == .mine || newBoard[Int(randPlaceX)][Int(randPlaceY) - 1] == .mine || newBoard[Int(randPlaceX)][Int(randPlaceY) + 1] == .mine && Int(randPlaceX) != tapLocal + 1 && Int(randPlaceX) != tapLocal - 1 && Int(randPlaceX) != tapLocal && Int(randPlaceY) != tapLocal + mineSweeper.x && Int(randPlaceY) != tapLocal - mineSweeper.x && Int(randPlaceY) != tapLocal)
                 {
                     break
                 }
