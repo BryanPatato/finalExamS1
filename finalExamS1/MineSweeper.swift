@@ -31,18 +31,19 @@ public class mineSweeper
         mineSweeper.x = 0
         mineSweeper.y = 0
     }
-    func initReveal(indexPath: IndexPath)
+    func initReveal(unit: Int)
     {
         state = .active
-        board = c.generate(tapLocal: indexPath.row)
+        board = c.generate(tapLocal: unit)
         hidBoard = [[Bool]](repeating: [Bool](repeating: false, count: mineSweeper.x), count: mineSweeper.y)
-        reveal(indexPath: indexPath)
+        reveal(unit: unit)
     }
-    func reveal(indexPath: IndexPath)
+    func reveal(unit: Int)
     {
-        if hidBoard[indexPath.row][indexPath.item] == false
+        if hidBoard[unit / mineSweeper.x][unit % mineSweeper.y] == false
         {
-            switch board[indexPath.row][indexPath.item] as tileType
+            hidBoard[unit / mineSweeper.x][unit % mineSweeper.y] = true
+            switch board[unit / mineSweeper.x][unit % mineSweeper.y] as tileType
             {
             case .mine:
                 do
@@ -57,26 +58,30 @@ public class mineSweeper
             default:
                 do
                 {
-                    if board[indexPath.row + 1][indexPath.item] == .empty
+                    if board[(unit / 8) + mineSweeper.x][unit % 8] == .empty
                     {
-                        reveal(indexPath: IndexPath(row: indexPath.row + 1, section: indexPath.section))
+                        reveal(unit: unit + mineSweeper.x)
                     }
-                    else if board[indexPath.row - 1][indexPath.item] == .empty
+                    else if board[(unit / 8) - mineSweeper.x][unit % 8] == .empty
                     {
-                        reveal(indexPath: IndexPath(row: indexPath.row - 1, section: indexPath.section))
+                        reveal(unit: unit - mineSweeper.x)
                     }
-                    else if board[indexPath.row][indexPath.item + 1] == .empty
+                    else if board[unit / 8][(unit % 8) + 1] == .empty
                     {
-                        reveal(indexPath: IndexPath(item: indexPath.item + 1, section: indexPath.section))
+                        reveal(unit: unit + 1)
                     }
-                    else if board[indexPath.row][indexPath.item - 1] == .empty
+                    else if board[unit / 8][(unit % 8) - 1] == .empty
                     {
-                        reveal(indexPath: IndexPath(item: indexPath.item - 1, section: indexPath.section))
+                        reveal(unit: unit - 1)
                     }
                 }
             }
         }
-        hidBoard[indexPath.row][indexPath.item] = true
+        hidBoard[unit / mineSweeper.x][unit % mineSweeper.y] = true
+    }
+    func placeFlag(unit: Int)
+    {
+        hidBoard[unit / mineSweeper.x][unit % mineSweeper.y]
     }
 }
 private class generator
