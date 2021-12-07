@@ -4,6 +4,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var use: UISegmentedControl!
     @IBOutlet weak var cellCell: UICollectionView!
     var cellCluster: [UICollectionViewCell] = []
+    var gameBoard:mineSweeper = mineSweeper()
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -23,15 +24,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     func collectionView(_ colectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        let cell = collectionView(colectionView, cellForItemAt: indexPath)
+        let cell = collectionView(colectionView, cellForItemAt: indexPath) as! CustomCell
         let preColor = cell.backgroundColor
         if use.selectedSegmentIndex == 0
         {
             cell.backgroundColor = UIColor.black
+            cell.cellImage.image = UIImage(named: "mine")
         }
         else
         {
             cell.backgroundColor = UIColor.gray
+            cell.cellImage.image = UIImage(named: "flag")
         }
         UICollectionViewCell.animate(withDuration: 2, delay: 0.2, options: .curveEaseInOut, animations:
             {cell.backgroundColor = preColor})

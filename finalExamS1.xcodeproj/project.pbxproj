@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C7F27D3275F9A24001F9CE2 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F27D2275F9A24001F9CE2 /* CustomCell.swift */; };
 		9C8FD97F2755134400FDFD04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8FD97E2755134400FDFD04 /* AppDelegate.swift */; };
 		9C8FD9812755134400FDFD04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8FD9802755134400FDFD04 /* SceneDelegate.swift */; };
 		9C8FD9832755134400FDFD04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8FD9822755134400FDFD04 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C7F27D2275F9A24001F9CE2 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		9C8FD97B2755134400FDFD04 /* finalExamS1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finalExamS1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C8FD97E2755134400FDFD04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C8FD9802755134400FDFD04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				9C8FD99527551DA200FDFD04 /* ViewController2.swift */,
 				9C8FD9842755134400FDFD04 /* Main.storyboard */,
 				9C8FD99727551DC800FDFD04 /* MineSweeper.swift */,
+				9C7F27D2275F9A24001F9CE2 /* CustomCell.swift */,
 				9C8FD99927551DD400FDFD04 /* Chess.swift */,
 				9C8FD98A2755134600FDFD04 /* Assets.xcassets */,
 				9C8FD98C2755134600FDFD04 /* LaunchScreen.storyboard */,
@@ -156,6 +159,7 @@
 				9C8FD9892755134400FDFD04 /* finalExamS1.xcdatamodeld in Sources */,
 				9C8FD97F2755134400FDFD04 /* AppDelegate.swift in Sources */,
 				9C8FD99827551DC800FDFD04 /* MineSweeper.swift in Sources */,
+				9C7F27D3275F9A24001F9CE2 /* CustomCell.swift in Sources */,
 				9C8FD9812755134400FDFD04 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
