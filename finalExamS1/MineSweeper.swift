@@ -11,6 +11,18 @@ enum tileType
     case mine
     case empty
     case number
+    var value:String{
+        switch self {
+        case .flag:
+            return "flag"
+        case .mine:
+            return "mine"
+        case .empty:
+            return "blank"
+        case .number:
+            return "x"
+        }
+    }
 }
 public class mineSweeper
 {
