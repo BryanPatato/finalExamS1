@@ -18,7 +18,7 @@ public class mineSweeper
     var state: activeState
     var board: [[tileType]]
     var hidBoard: [[Bool]]
-    static var adjacent: [[Int]]
+    var adjacent: [[Int]]
     static var x = 0
     static var y = 0
     fileprivate var c: generator
@@ -28,7 +28,7 @@ public class mineSweeper
         c = generator(boardSizeX: 8, BoardSizeY: 8)
         board = [[]]
         hidBoard = [[]]
-        mineSweeper.adjacent = [[]]
+        adjacent = [[]]
         mineSweeper.x = 0
         mineSweeper.y = 0
     }
@@ -125,7 +125,148 @@ private class generator
             }
             newBoard[Int(randPlaceX)][Int(randPlaceY)] = .mine
         }
-        for 
         return newBoard
+    }
+    func genAdjacent(tileArray: [[Int]], board: [[tileType]]) -> [[Int]]
+    {
+        var likewiseTileArray = tileArray
+        for e in 0...tileArray.count
+        {
+            for i in 0...[tileArray].count
+            {
+                if board[e][i] != .mine
+                {
+                    if e - 1 > 0 || i - 1 > 0 || e + 1 < tileArray.count || i - 1 < [tileArray].count
+                    {
+                        for qu in 0...2
+                        {
+                            for uq in 0...2
+                            {
+                                if board[e - 1 + qu][i - 1 + uq] == .mine
+                                {
+                                    likewiseTileArray[e][i] += 1
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if e == 0 && i == 0
+                        {
+                            if board[e + 1][i] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                            if board[e][i + 1] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                            if board[e + 1][i + 1] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                        }
+                        else if e == mineSweeper.x && i == 0
+                        {
+                            if board[e - 1][i] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                            if board[e][i + 1] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                            if board[e - 1][i + 1] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                        }
+                        else if e == 0 && i == mineSweeper.y
+                        {
+                            if board[e + 1][i] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                            if board[e][i - 1] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                            if board[e + 1][i - 1] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                        }
+                        else if e == mineSweeper.x && i == mineSweeper.y
+                        {
+                            if board[e - 1][i] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                            if board[e][i - 1] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                            if board[e - 1][i - 1] == .mine
+                            {
+                                likewiseTileArray[e][i] += 1
+                            }
+                        }
+                        else if board.count - 1 < 0
+                        {
+                            for qu in 0...1
+                            {
+                                for uq in 0...2
+                                {
+                                    if board[e + qu][i - 1 + uq] == .mine
+                                    {
+                                        likewiseTileArray[e][i] += 1
+                                    }
+                                }
+                            }
+                        }
+                        else if [board].count - 1 < 0
+                        {
+                            for qu in 0...1
+                            {
+                                for uq in 0...2
+                                {
+                                    if board[e - 1 + uq][i + qu] == .mine
+                                    {
+                                        likewiseTileArray[e][i] += 1
+                                    }
+                                }
+                            }
+                        }
+                        else if board.count + 1 > mineSweeper.x
+                        {
+                            for qu in 0...1
+                            {
+                                for uq in 0...2
+                                {
+                                    if board[e - qu][i - 1 + uq] == .mine
+                                    {
+                                        likewiseTileArray[e][i] += 1
+                                    }
+                                }
+                            }
+                        }
+                        else if board.count + 1 > mineSweeper.y
+                        {
+                            for qu in 0...1
+                            {
+                                for uq in 0...2
+                                {
+                                    if board[e - 1 + uq][i - qu] == .mine
+                                    {
+                                        likewiseTileArray[e][i] += 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+      return likewiseTileArray
     }
 }
