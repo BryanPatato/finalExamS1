@@ -4,6 +4,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var use: UISegmentedControl!
     @IBOutlet weak var cellCell: UICollectionView!
     var cellCluster: [UICollectionViewCell] = []
+    var gameBoard:mineSweeper = mineSweeper()
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if use.selectedSegmentIndex == 0
         {
             cell.backgroundColor = UIColor.black
+            cell.cellImage.image = UIImage(named: "mine")
         }
         else
         {
