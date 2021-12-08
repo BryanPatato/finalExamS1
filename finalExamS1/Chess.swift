@@ -56,7 +56,6 @@ enum PieceColor {
 
 public class PieceID: ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
-    
     var id:String
     var type:chessPiece
     var colors:PieceColor
@@ -96,6 +95,18 @@ public class Chess {
 //    var state:chessState{
 //       let color = turn
 //    }
+    
+    func canSelectPiece(at position: Position) -> Bool {
+        return board.piecePlace(at: position).colors == turn
+    }
+    
+    func canMove(from: Position, by: change) -> Bool {
+        return canMove(from: from, to: Position(x: from.x+by.x, y: from.y+by.y) )
+    }
+    
+    func canMove(from: Position, to:Position) -> Bool {
+        return false
+    }
     
     
     init() {
