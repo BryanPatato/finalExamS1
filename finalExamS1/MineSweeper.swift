@@ -13,8 +13,6 @@ enum tileType
     case number
     var value:String{
         switch self {
-        case .flag:
-            return "flag"
         case .mine:
             return "mine"
         case .empty:
@@ -52,10 +50,10 @@ public class mineSweeper
     }
     func reveal(unit: Int)
     {
-        if hidBoard[unit / mineSweeper.x][unit % mineSweeper.y] == false
+        if hidBoard[unit % mineSweeper.x][unit / mineSweeper.y] == false
         {
-            hidBoard[unit / mineSweeper.x][unit % mineSweeper.y] = true
-            switch board[unit / mineSweeper.x][unit % mineSweeper.y] as tileType
+            hidBoard[unit % mineSweeper.x][unit / mineSweeper.y] = true
+            switch board[unit % mineSweeper.x][unit / mineSweeper.y] as tileType
             {
             case .mine:
                 do
@@ -70,30 +68,34 @@ public class mineSweeper
             default:
                 do
                 {
-                    if board[(unit / 8) + mineSweeper.x][unit % 8] == .empty
+                    if board[(unit % mineSweeper.x) + 1][unit / mineSweeper.y] == .empty
                     {
                         reveal(unit: unit + mineSweeper.x)
                     }
-                    else if board[(unit / 8) - mineSweeper.x][unit % 8] == .empty
+                    if board[(unit % mineSweeper.x) - 1][unit / mineSweeper.y] == .empty
                     {
                         reveal(unit: unit - mineSweeper.x)
                     }
-                    else if board[unit / 8][(unit % 8) + 1] == .empty
+                    if board[unit % mineSweeper.x][(unit / mineSweeper.y) + 1] == .empty
                     {
                         reveal(unit: unit + 1)
                     }
-                    else if board[unit / 8][(unit % 8) - 1] == .empty
+                    if board[unit / 8][(unit % 8) - 1] == .empty
                     {
                         reveal(unit: unit - 1)
                     }
                 }
             }
         }
-        hidBoard[unit / mineSweeper.x][unit % mineSweeper.y] = true
+        hidBoard[unit % mineSweeper.x][unit / mineSweeper.y] = true
     }
     func placeFlag(unit: Int)
     {
-        hidBoard[unit / mineSweeper.x][unit % mineSweeper.y]
+        hidBoard[unit % mineSweeper.x][unit / mineSweeper.y] = true
+    }
+    func remFlag(unit: Int)
+    {
+        hidBoard[unit % mineSweeper.x][unit / mineSweeper.y] = false
     }
 }
 private class generator
@@ -120,10 +122,11 @@ private class generator
         var newBoard = [[tileType]](repeating: [tileType](repeating: .empty, count: mineSweeper.y), count: mineSweeper.x)
         for _ in 0...Int(bombHandler[0])
         {
-            var randPlaceX = CGFloat.random(in: 0...CGFloat(mineSweeper.x))
-            var randPlaceY = CGFloat.random(in: 0...CGFloat(mineSweeper.y))
+            
             for _ in 0...Int(bombHandler[2])
             {
+                var randPlaceX = CGFloat.random(in: 0...CGFloat(mineSweeper.x))
+                var randPlaceY = CGFloat.random(in: 0...CGFloat(mineSweeper.y))
                 if  randPlaceX - 1 > 0 && randPlaceY - 1 > 0 && Int(randPlaceX) + 1 < mineSweeper.x && Int(randPlaceY) + 1 < mineSweeper.y && (newBoard[Int(randPlaceX) - 1][Int(randPlaceY)] == .mine || newBoard[Int(randPlaceX) + 1][Int(randPlaceY)] == .mine || newBoard[Int(randPlaceX)][Int(randPlaceY) - 1] == .mine || newBoard[Int(randPlaceX)][Int(randPlaceY) + 1] == .mine && Int(randPlaceX) != tapLocal + 1 && Int(randPlaceX) != tapLocal - 1 && Int(randPlaceX) != tapLocal && Int(randPlaceY) != tapLocal + mineSweeper.x && Int(randPlaceY) != tapLocal - mineSweeper.x && Int(randPlaceY) != tapLocal)
                 {
                     break
@@ -133,8 +136,8 @@ private class generator
                     randPlaceX = CGFloat.random(in: 0...CGFloat(mineSweeper.x))
                     randPlaceY = CGFloat.random(in: 0...CGFloat(mineSweeper.y))
                 }
+                newBoard[Int(randPlaceX)][Int(randPlaceY)] = .mine
             }
-            newBoard[Int(randPlaceX)][Int(randPlaceY)] = .mine
         }
         return newBoard
     }
