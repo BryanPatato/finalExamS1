@@ -87,9 +87,9 @@ struct Move {
     
 public class Chess {
     var board:Board
-    var moveHis:[Move]
+    var history:[Move]
     var turn:PieceColor {
-        return moveHis.last.flatMap { board.piecePlace(at: $0.to).colors.color ?? .white } as! PieceColor
+        return history.last.flatMap { board.piecePlace(at: $0.to).colors.color ?? .white } as! PieceColor
     }
     
 //    var state:chessState{
@@ -111,7 +111,7 @@ public class Chess {
     
     init() {
     board = Board()
-    moveHis = []
+    history = []
     }
     
 }
