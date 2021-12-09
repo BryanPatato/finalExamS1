@@ -100,6 +100,7 @@
                         <outlet property="missCounter" destination="zad-1T-S6c" id="qwR-C4-Vct"/>
                         <outlet property="reset" destination="Iab-NV-WVe" id="rOJ-Yn-1w0"/>
                         <outlet property="use" destination="aJ1-wy-fx6" id="dve-SY-qJ8"/>
+                        <segue destination="MWn-RN-8Sa" kind="show" id="nne-4K-ESd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -651,6 +652,7 @@
                         <viewLayoutGuide key="safeArea" id="7FH-Xk-cDW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="3Jf-ED-ru6"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ajf-5B-9OZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
