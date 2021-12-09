@@ -4,7 +4,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var use: UISegmentedControl!
     @IBOutlet weak var cellCell: UICollectionView!
     var cellCluster: [UICollectionViewCell] = []
-    var gameBoard:mineSweeper = mineSweeper()
+    var sweeper: mineSweeper = mineSweeper(desX: 8, desY: 8)
+    var mayBool = true
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -25,19 +26,39 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ colectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         let cell = collectionView(colectionView, cellForItemAt: indexPath) as! CustomCell
-        let preColor = cell.backgroundColor
-        if use.selectedSegmentIndex == 0
+        if mayBool == true
         {
-            cell.backgroundColor = UIColor.black
-            cell.cellImage.image = UIImage(named: "mine")
+            sweeper.initReveal(unit: indexPath.row)
+            mayBool = false
         }
         else
         {
-            cell.backgroundColor = UIColor.gray
-            cell.cellImage.image = UIImage(named: "flag")
+            sweeper.reveal(unit: indexPath.row)
         }
-        UICollectionViewCell.animate(withDuration: 2, delay: 0.2, options: .curveEaseInOut, animations:
-            {cell.backgroundColor = preColor})
+        let desiredCol = #colorLiteral(red: 0.7254729867, green: 0.7254837155, blue: 0.7297105193, alpha: 1)
+        switch sweeper.getNums(unit: indexPath.row)
+        {
+        case 1:
+            cell.cellImage.image = UIImage(named: "1")
+        case 2:
+            cell.cellImage.image = UIImage(named: "2")
+        case 3:
+            cell.cellImage.image = UIImage(named: "3")
+        case 4:
+            cell.cellImage.image = UIImage(named: "4")
+        case 5:
+            cell.cellImage.image = UIImage(named: "5")
+        case 6:
+            cell.cellImage.image = UIImage(named: "6")
+        case 7:
+            cell.cellImage.image = UIImage(named: "7")
+        case 8:
+            cell.cellImage.image = UIImage(named: "8")
+        default:
+            cell.cellImage.image = UIImage(named: "nilch")
+        }
+        UICollectionViewCell.animate(withDuration: 3, delay: 0.1, options: .curveEaseOut, animations:
+        {cell.backgroundColor = desiredCol; cell.cellImage.alpha = 1})
     }
 }
 
