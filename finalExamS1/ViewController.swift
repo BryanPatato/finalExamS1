@@ -26,6 +26,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ colectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         let cell = collectionView(colectionView, cellForItemAt: indexPath) as! CustomCell
+        print("\(indexPath.row), \(indexPath.section)")
         if mayBool == true
         {
             sweeper.initReveal(unit: indexPath.row)
