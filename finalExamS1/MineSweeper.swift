@@ -46,6 +46,7 @@ public class mineSweeper
         state = .active
         board = c.generate(tapLocal: unit)
         hidBoard = [[Bool]](repeating: [Bool](repeating: false, count: mineSweeper.x), count: mineSweeper.y)
+        adjacent = c.genAdjacent(board: board)
         print(hidBoard.count)
         reveal(unit: unit)
     }
@@ -69,19 +70,20 @@ public class mineSweeper
             default:
                 do
                 {
-                    if board[(unit % mineSweeper.x) + 1][unit % mineSweeper.y] == .empty
+                    if board[(unit / mineSweeper.x) + 1][unit % mineSweeper.y] == .empty && unit + mineSweeper.x < mineSweeper.x
                     {
                         reveal(unit: unit + mineSweeper.x)
                     }
-                    if board[(unit % mineSweeper.x) - 1][unit % mineSweeper.y] == .empty
+                    if board[(unit / mineSweeper.x) - 1][unit % mineSweeper.y] == .empty
+                        && unit - mineSweeper.x > mineSweeper.x
                     {
                         reveal(unit: unit - mineSweeper.x)
                     }
-                    if board[Int(unit / mineSweeper.x)][(Int(unit / mineSweeper.y)) + 1] == .empty
+                    if board[Int(unit / mineSweeper.x)][(Int(unit % mineSweeper.y)) + 1] == .empty && unit + 1 < mineSweeper.y
                     {
                         reveal(unit: unit + 1)
                     }
-                    if board[unit / 8][(unit % 8) - 1] == .empty
+                    if board[unit / 8][(unit % 8) - 1] == .empty && unit - 1 > 0
                     {
                         reveal(unit: unit - 1)
                     }
@@ -158,16 +160,16 @@ private class generator
         }
         return newBoard
     }
-    func genAdjacent(tileArray: [[Int]], board: [[tileType]]) -> [[Int]]
+    func genAdjacent(board: [[tileType]]) -> [[Int]]
     {
-        var likewiseTileArray = tileArray
-        for e in 0...tileArray.count
+        var likewiseTileArray = [[Int]](repeating: [Int](repeating: 0, count: mineSweeper.x), count: mineSweeper.y)
+        for e in 0...mineSweeper.x - 1
         {
-            for i in 0...[tileArray].count
+            for i in 0...mineSweeper.y - 1
             {
                 if board[e][i] != .mine
                 {
-                    if e - 1 > 0 || i - 1 > 0 || e + 1 < tileArray.count || i - 1 < [tileArray].count
+                    if e - 1 > 0 && i - 1 > 0 && e < mineSweeper.x - 1 && i < mineSweeper.y - 1
                     {
                         for qu in 0...2
                         {
@@ -197,7 +199,7 @@ private class generator
                                 likewiseTileArray[e][i] += 1
                             }
                         }
-                        else if e == mineSweeper.x && i == 0
+                        else if e == mineSweeper.x - 1 && i == 0
                         {
                             if board[e - 1][i] == .mine
                             {
@@ -212,7 +214,7 @@ private class generator
                                 likewiseTileArray[e][i] += 1
                             }
                         }
-                        else if e == 0 && i == mineSweeper.y
+                        else if e == 0 && i == mineSweeper.y - 1
                         {
                             if board[e + 1][i] == .mine
                             {
@@ -227,7 +229,7 @@ private class generator
                                 likewiseTileArray[e][i] += 1
                             }
                         }
-                        else if e == mineSweeper.x && i == mineSweeper.y
+                        else if e == mineSweeper.x - 1 && i == mineSweeper.y - 1
                         {
                             if board[e - 1][i] == .mine
                             {
@@ -242,7 +244,7 @@ private class generator
                                 likewiseTileArray[e][i] += 1
                             }
                         }
-                        else if board.count - 1 < 0
+                        else if e - 1 < 0 && i != mineSweeper.y - 1 && e != mineSweeper.x - 1
                         {
                             for qu in 0...1
                             {
@@ -255,7 +257,7 @@ private class generator
                                 }
                             }
                         }
-                        else if [board].count - 1 < 0
+                        else if i - 1 < 0 && i != mineSweeper.y - 1 && e != mineSweeper.x - 1
                         {
                             for qu in 0...1
                             {
@@ -268,7 +270,7 @@ private class generator
                                 }
                             }
                         }
-                        else if board.count + 1 > mineSweeper.x
+                        else if e + 1 > mineSweeper.x - 1
                         {
                             for qu in 0...1
                             {
@@ -281,7 +283,7 @@ private class generator
                                 }
                             }
                         }
-                        else if board.count + 1 > mineSweeper.y
+                        else if i + 1 > mineSweeper.y - 1
                         {
                             for qu in 0...1
                             {
