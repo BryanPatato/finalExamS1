@@ -65,7 +65,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iab-NV-WVe">
-                                <rect key="frame" x="20" y="746" width="229" height="31"/>
+                                <rect key="frame" x="20" y="733" width="229" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Restart"/>
@@ -96,6 +96,7 @@
                     <navigationItem key="navigationItem" id="BqY-Lf-BZ8"/>
                     <connections>
                         <outlet property="cellCell" destination="brc-tQ-rND" id="03f-0c-d0p"/>
+                        <outlet property="miss" destination="FfK-hw-Did" id="IP0-wa-W83"/>
                         <outlet property="missCounter" destination="zad-1T-S6c" id="qwR-C4-Vct"/>
                         <outlet property="reset" destination="Iab-NV-WVe" id="rOJ-Yn-1w0"/>
                         <outlet property="use" destination="aJ1-wy-fx6" id="dve-SY-qJ8"/>

@@ -5,6 +5,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var cellCell: UICollectionView!
     @IBOutlet weak var reset: UIButton!
     @IBOutlet weak var missCounter: UILabel!
+    @IBOutlet weak var miss: UILabel!
     var cellCluster: [UICollectionViewCell] = []
     var sweeper: mineSweeper = mineSweeper(desX: 10, desY: 10)
     var mayBool = true
@@ -13,6 +14,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        miss.layer.cornerRadius = 3
         cellCell.delegate = self
         cellCell.dataSource = self
     }
@@ -53,6 +55,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 sweeper.placeFlag(unit: indexPath.row)
                 UICollectionViewCell.animate(withDuration: 0.7, delay: 0.1, options: .curveEaseOut, animations:
                 {cell.backgroundColor = desiredCol; cell.cellImage.alpha = 1})
+                if sweeper.win()
+                {
+                    let err = UIAlertController(title: "You won with \(misscount) misses!", message: "Congratz!", preferredStyle: .alert)
+                    err.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+                    present(err, animated: true)
+                }
             }
         }
         else

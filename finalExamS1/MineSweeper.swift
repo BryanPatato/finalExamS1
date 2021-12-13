@@ -51,24 +51,7 @@ public class mineSweeper
     }
     func reveal(unit: Int)
     {
-        if state != .explosion 
-        {
-            hidBoard[Int(unit / mineSweeper.x)][unit % mineSweeper.y] = true
-        }
-    }
-    func explode()
-    {
-        state = .explosion
-        for i in 0...mineSweeper.x - 1
-        {
-            for e in 0...mineSweeper.y - 1
-            {
-                if board[i][e] == .mine
-                {
-                    hidBoard[i][e] = true
-                }
-            }
-        }
+        hidBoard[Int(unit / mineSweeper.x)][unit % mineSweeper.y] = true
     }
     func placeFlag(unit: Int)
     {
@@ -100,6 +83,28 @@ public class mineSweeper
     func flagged(unit: Int) -> Bool
     {
         if hidBoard[Int(unit / mineSweeper.x)][Int(unit % mineSweeper.y)] == true
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+    func win() -> Bool
+    {
+        var maybeMaybe = 0
+        for e in 0...mineSweeper.x - 1
+        {
+            for i in 0...mineSweeper.y - 1
+            {
+                if hidBoard[e][i] == true
+                {
+                    maybeMaybe += 1
+                }
+            }
+        }
+        if maybeMaybe == board.count
         {
             return true
         }
