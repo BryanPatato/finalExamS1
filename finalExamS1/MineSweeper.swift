@@ -1,4 +1,4 @@
-import Foundation; import CoreGraphics
+import Foundation; import CoreGraphics;
 enum activeState
 {
     case unplayed
@@ -33,13 +33,13 @@ public class mineSweeper
     fileprivate var c: generator
     init(desX: Int, desY: Int)
     {
+        mineSweeper.x = desX
+        mineSweeper.y = desY
         state = .unplayed
-        c = generator(boardSizeX: 8, BoardSizeY: 8)
+        c = generator(boardSizeX: mineSweeper.x, BoardSizeY: mineSweeper.y)
         board = [[]]
         hidBoard = [[]]
         adjacent = [[]]
-        mineSweeper.x = desX
-        mineSweeper.y = desY
     }
     func initReveal(unit: Int)
     {
@@ -47,73 +47,71 @@ public class mineSweeper
         board = c.generate(tapLocal: unit)
         hidBoard = [[Bool]](repeating: [Bool](repeating: false, count: mineSweeper.x), count: mineSweeper.y)
         adjacent = c.genAdjacent(board: board)
-        print(hidBoard.count)
         reveal(unit: unit)
     }
     func reveal(unit: Int)
     {
-        if hidBoard[Int(unit / mineSweeper.x)][unit % mineSweeper.y] == false && state == .active
+        if state != .explosion 
         {
             hidBoard[Int(unit / mineSweeper.x)][unit % mineSweeper.y] = true
-            switch board[Int(unit / mineSweeper.x)][unit % mineSweeper.y] as tileType
+        }
+    }
+    func explode()
+    {
+        state = .explosion
+        for i in 0...mineSweeper.x - 1
+        {
+            for e in 0...mineSweeper.y - 1
             {
-            case .mine:
-                do
+                if board[i][e] == .mine
                 {
-                    state = .explosion
-                }
-            case .number:
-                do
-                {
-                    
-                }
-            default:
-                do
-                {
-                    if board[(unit / mineSweeper.x) + 1][unit % mineSweeper.y] == .empty && unit + mineSweeper.x < mineSweeper.x
-                    {
-                        reveal(unit: unit + mineSweeper.x)
-                    }
-                    if board[(unit / mineSweeper.x) - 1][unit % mineSweeper.y] == .empty
-                        && unit - mineSweeper.x > mineSweeper.x
-                    {
-                        reveal(unit: unit - mineSweeper.x)
-                    }
-                    if board[Int(unit / mineSweeper.x)][(Int(unit % mineSweeper.y)) + 1] == .empty && unit + 1 < mineSweeper.y
-                    {
-                        reveal(unit: unit + 1)
-                    }
-                    if board[unit / 8][(unit % 8) - 1] == .empty && unit - 1 > 0
-                    {
-                        reveal(unit: unit - 1)
-                    }
+                    hidBoard[i][e] = true
                 }
             }
         }
-        hidBoard[Int(unit / mineSweeper.x)][unit % mineSweeper.y] = true
     }
     func placeFlag(unit: Int)
     {
-        if state != .explosion
-        {
-            hidBoard[Int(unit / mineSweeper.x)][unit % mineSweeper.y] = true
-        }
+        hidBoard[Int(unit / mineSweeper.x)][unit % mineSweeper.y] = true
     }
     func remFlag(unit: Int)
     {
-        if state != .explosion
-        {
-            hidBoard[Int(unit / mineSweeper.x)][unit % mineSweeper.y] = false
-        }
+        hidBoard[Int(unit / mineSweeper.x)][unit % mineSweeper.y] = false
     }
     func getNums(unit: Int) -> Int
     {
         return adjacent[Int(unit / mineSweeper.x)][unit % mineSweeper.y]
     }
+    func getSize() -> Int
+    {
+        return mineSweeper.x * mineSweeper.y
+    }
+    func isBomb(unit: Int) -> Bool
+    {
+        if board[Int(unit / mineSweeper.x)][unit % mineSweeper.y] == .mine
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+    func flagged(unit: Int) -> Bool
+    {
+        if hidBoard[Int(unit / mineSweeper.x)][Int(unit % mineSweeper.y)] == true
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
 }
 private class generator
 {
-    var bombHandler = [0, 0.0, 0]
+    var bombHandler = [0, 0.0]
     init(boardSizeX: Int, BoardSizeY: Int)
     {
         mineSweeper.x = boardSizeX
@@ -124,11 +122,6 @@ private class generator
         bombHandler[0] = floor(Double(Double(base)/4.17))
         // in the base case, this would make the bomb density 1 ( This handles extra bombs on larger boards, thus the new bomb total is 20 bombs )
         bombHandler[1] = (64/Double(base))
-        // in the base case, this would randomly assign a bomb tenacity between 1 and 3 ( This handles bomb clumping )
-        bombHandler[2] = CGFloat.random(in: 0...floor(CGFloat(base/16)) - 1)
-        bombHandler[0] /= floor(bombHandler[1])
-        // The reason behind this one here is to make smaller boards have less clumping, yet larger ones happen to clump more-- heck, this actually disincetivises active clumping in the base case, making the maximum tendancy value a 1.
-        bombHandler[2] -= ceil(bombHandler[1]*2)
     }
     func generate(tapLocal: Int) -> [[tileType]]
     {
@@ -136,46 +129,36 @@ private class generator
         print(newBoard.count)
         for _ in 0...Int(bombHandler[0])
         {
-            if bombHandler[2] <= 0
-            {
-            }
-            else
-            {
-                for _ in 0...(Int(bombHandler[2]))
-                {
-                    var randPlaceX = Int(CGFloat.random(in: 0...CGFloat(mineSweeper.x)))
-                    var randPlaceY = Int(CGFloat.random(in: 0...CGFloat(mineSweeper.y)))
-                    if  randPlaceX - 1 > 0 && randPlaceY - 1 > 0 && randPlaceX + 1 < mineSweeper.x && randPlaceY + 1 < mineSweeper.y && (newBoard[randPlaceX - 1][randPlaceY] == .mine || newBoard[randPlaceX + 1][randPlaceY] == .mine || newBoard[randPlaceX][randPlaceY - 1] == .mine || newBoard[randPlaceX][randPlaceY + 1] == .mine && randPlaceX != tapLocal + 1 && randPlaceX != tapLocal - 1 && randPlaceX != tapLocal && randPlaceY != tapLocal + mineSweeper.x && randPlaceY != tapLocal - mineSweeper.x && randPlaceY != tapLocal)
-                    {
-                        break
-                    }
-                    else
-                    {
-                        randPlaceX = Int(CGFloat.random(in: 0...CGFloat(mineSweeper.x)))
-                        randPlaceY = Int(CGFloat.random(in: 0...CGFloat(mineSweeper.y)))
-                    }
-                    newBoard[randPlaceX][randPlaceY] = .mine
-                }
-            }
+            let randPlaceX = Int(CGFloat.random(in: 0...CGFloat(mineSweeper.x)))
+            let randPlaceY = Int(CGFloat.random(in: 0...CGFloat(mineSweeper.y)))
+//            if  randPlaceX - 1 > 0 && randPlaceY - 1 > 0 && randPlaceX + 1 < mineSweeper.x && randPlaceY + 1 < mineSweeper.y && (newBoard[randPlaceX - 1][randPlaceY] == .mine || newBoard[randPlaceX + 1][randPlaceY] == .mine || newBoard[randPlaceX][randPlaceY - 1] == .mine || newBoard[randPlaceX][randPlaceY + 1] == .mine && randPlaceX != tapLocal + 1 && randPlaceX != tapLocal - 1 && randPlaceX != tapLocal && randPlaceY != tapLocal + mineSweeper.x && randPlaceY != tapLocal - mineSweeper.x && randPlaceY != tapLocal)
+//            {
+//                break
+//            }
+            newBoard[randPlaceX][randPlaceY] = .mine
         }
         return newBoard
     }
     func genAdjacent(board: [[tileType]]) -> [[Int]]
     {
-        var likewiseTileArray = [[Int]](repeating: [Int](repeating: 0, count: mineSweeper.x), count: mineSweeper.y)
+        var likewiseTileArray = [[Int]](repeating: [Int](repeating: 0, count: mineSweeper.y), count: mineSweeper.x)
         for e in 0...mineSweeper.x - 1
         {
             for i in 0...mineSweeper.y - 1
             {
-                if board[e][i] != .mine
+                if board[e][i] == .mine
                 {
-                    if e - 1 > 0 && i - 1 > 0 && e < mineSweeper.x - 1 && i < mineSweeper.y - 1
+                    likewiseTileArray[e][i] = 9
+                }
+                else
+                {
+                    if e - 1 >= 0 && i - 1 >= 0 && e < mineSweeper.x - 1 && i < mineSweeper.y - 1
                     {
                         for qu in 0...2
                         {
                             for uq in 0...2
                             {
-                                if board[e - 1 + qu][i - 1 + uq] == .mine
+                                if board[(e - 1) + uq][(i - 1) + qu] == .mine
                                 {
                                     likewiseTileArray[e][i] += 1
                                 }
