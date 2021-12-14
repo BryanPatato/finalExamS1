@@ -32,6 +32,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     {
         let cell = cellCell.dequeueReusableCell(withReuseIdentifier: "selCel", for: indexPath)
         cell.backgroundColor = #colorLiteral(red: 0, green: 0.6180339456, blue: 1, alpha: 0.8438409567)
+        cell.contentView.layer.cornerRadius = 6.0
+        cell.contentView.layer.borderWidth = 1.0
+        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.masksToBounds = true
+
+        cell.layer.shadowColor = UIColor.lightGray.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        cell.layer.shadowRadius = 6.0
+        cell.layer.shadowOpacity = 1.0
+        cell.layer.masksToBounds = false
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
+        cell.layer.backgroundColor = UIColor.clear.cgColor
         cellCluster.append(cell)
         return cellCluster[indexPath.row]
     }
